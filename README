@@ -1,0 +1,178 @@
+- Cada usuário tem uma Conta Corrente
+- Usuário logar-se na conta
+- Usuário pode visualizar o saldo
+- Usuário pode visualizar o extrato por período
+- Realizar transferência
+- Realizar pagamento
+
+Tela inicial para login
+	- Form com conta, agência e senha
+	- Ok, logado
+	- Dados inválidos
+
+Tela Dashboard
+	- Ações
+	- Saldo
+
+- Tela Extrato
+	- Lista com cod, nome, valor
+	- Form com data de período
+
+- Tela de Transferência
+	- Saldo atual
+	- Form com select com favorecido (add o favorecido), valor e agendamento
+	- Label
+
+- Tela de pagamento
+	- Saldo atual
+	- Código de barras
+	- Valor
+	- Label
+
+API
+
+	POST /sessions
+		{
+			cpf,
+			password
+		}
+		- 200 -> OK
+		- 404 -> Not Found
+		- 400 -> Bad Request
+
+	DELETE /sessions
+		- 204 -> OK, sem dados
+		- 400 -> Bad Request
+
+	GET /sessions
+		{
+			cpf,
+			name,
+			agency,
+			account,
+		}
+
+		- 200
+		- 404
+
+	GET /balances
+		{ balance: R$ }
+		- 403 -> Não autorizado
+
+
+	GET /extracts/<date_begin>/<date_end>
+	GET /extracts/<date_begin>
+	GET /extracts [15 dias]
+		{
+			[date, cod, label, value]
+		}
+	- 403 -> Não autorizado
+
+	GET /favorites
+	{
+		[id, name, agency, account, cpf]
+	}
+		- 200, ok
+		- 403 -> Não autorizado
+
+	POST /favorites
+		{
+			name,
+			agency,
+			account,
+			cpf
+		}
+		- 403 
+		- 200, ok
+		- 400
+
+	DELETE /favorites/<id>
+		- 204
+		- 404
+		- 403
+
+	PATCH /favorites/<id>
+		{
+			name,
+			agency,
+			account,
+			cpf
+		}
+		- 200
+		- 404
+		- 403
+		- 400
+
+	GET /favorites/<id>
+		{
+			name,
+			agency,
+			account,
+			cpf
+		}
+		- 200
+		- 403
+		- 404
+
+	POST /transfer
+		{
+			date,
+			value,
+			label,
+			cpf,
+			agency,
+			account
+		}
+		- 200
+		- 403
+		- 400
+
+	DELETE /transfer/<id>
+
+		- 204
+		- 403
+		- 404
+		- 400
+
+	GET /transfer/<date_begin>/<date_end>
+	GET /transfer/<date_begin>
+	{
+	 [date, value, label, account, agency, cpf]
+	}
+
+	POST /pay 
+		{
+			cod, 
+			label,
+			value,
+			date
+		}
+		- 200
+		- 403
+		- 400
+
+	GET /pay/<date_begin>/<date_end>
+	GET /pay/<date_begin>
+
+		- 200
+		- 403
+		- 400
+
+	DELETE /pay/<id>
+
+		- 204
+		- 403
+		- 404
+		- 400
+
+
+
+
+	GET /recurso
+	GET /recurso/<id>
+	PATCH /recurso/<id>
+	POST	/recurso
+	DELETE	/recurso/<id>
+
+
+

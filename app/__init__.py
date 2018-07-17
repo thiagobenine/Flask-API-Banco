@@ -275,10 +275,7 @@ def list_favorites():
 @has_permission
 def show_favorite(cpf):
 	user = User.objects(id=session["user_id"]).first()
-	print("***************************************************")
 	favorite_candidate = User.objects(cpf = str(cpf)).first()
-	print("***************************************************")
-
 
 	favorites = [favorite.to_dict() for favorite in user.favorites]
 	favorites_cpfs = [str(favorite["cpf"]) for favorite in favorites]
